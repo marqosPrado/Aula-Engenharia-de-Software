@@ -1,14 +1,31 @@
 package domain;
 
+import java.util.List;
+
 public class Aula {
 
     private String titulo;
 
-    private Aluno presenca;
+    private List<Matricula> matriculas;
 
-    public Aula(String titulo, Aluno presenca) {
+    public Aula(String titulo, List<Matricula> matriculas) {
         this.titulo = titulo;
-        this.presenca = presenca;
+        this.matriculas = matriculas;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
 }
