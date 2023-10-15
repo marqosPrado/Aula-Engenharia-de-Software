@@ -4,66 +4,93 @@ import service.CriarNotasAluno;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("============ Sistema de Matrícula e Notas ============");
 
-        Matricula aluno1 = new Matricula(new Aluno("1111", "Julio Cocielo"), LocalDateTime.now());
-        Matricula aluno2 = new Matricula(new Aluno("2222", "Jean"), LocalDateTime.now());
-        Matricula aluno3 = new Matricula(new Aluno("3333", "Igor O Barba"), LocalDateTime.now());
-        Matricula aluno4 = new Matricula(new Aluno("4444", "Sergião Foguetes"), LocalDateTime.now());
+        Scanner scanner = new Scanner(System.in);
 
-        List<Matricula> listaMatriculaADS = new ArrayList<>();
-        listaMatriculaADS.add(aluno1);
-        listaMatriculaADS.add(aluno2);
-        listaMatriculaADS.add(aluno3);
-        listaMatriculaADS.add(aluno4);
+        System.out.println("============ Cadastro de Curso ============");
 
-        Aula es2 = new Aula("Engenharia de Software", 10);
+        System.out.print("Digite a sigla do curso: ");
+        String siglaCurso = scanner.nextLine();
+        System.out.print("Digite o nome do curso: ");
+        String nomeCurso = scanner.nextLine();
 
-        Curso ads = new Curso("ADS", "Análise e Desenvolvimento de Sistemas", listaMatriculaADS, es2);
+        System.out.println("============ Cadastro de Aula ============");
 
-        CriarNotasAluno criarNotasAluno = new CriarNotasAluno();
+        int numeroTotalAulas = 0;
+        System.out.println("Digite o titulo da aula: ");
+        String tituloAula = scanner.nextLine();
 
-        double[] notas = {10, 10, 10};
-        Nota nota = new Nota();
-        nota.setNotas(notas);
-        aluno1.setNota(nota);
+        while (numeroTotalAulas <= 0) {
+            System.out.print("Digite o número total de aulas (deve ser um número inteiro positivo): ");
+            try {
+                numeroTotalAulas = Integer.parseInt(scanner.nextLine());
+                if (numeroTotalAulas <= 0) {
+                    System.out.println("Número de aulas deve ser positivo.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Digite um número válido para o número de aulas.");
+            }
+        }
 
-        aluno2.setNota(criarNotasAluno.gerarNotasAleatorias());
-        aluno3.setNota(criarNotasAluno.gerarNotasAleatorias());
-        aluno4.setNota(criarNotasAluno.gerarNotasAleatorias());
+        Aula aula = new Aula(tituloAula, numeroTotalAulas);
 
-        List<Presenca> listaPresenca1 = new ArrayList<>();
-        listaPresenca1.add(Presenca.PRESENTE);
-        listaPresenca1.add(Presenca.PRESENTE);
-        listaPresenca1.add(Presenca.FALTA);
-        listaPresenca1.add(Presenca.FALTA);
-        listaPresenca1.add(Presenca.FALTA);
-        listaPresenca1.add(Presenca.FALTA);
-        listaPresenca1.add(Presenca.FALTA);
-        listaPresenca1.add(Presenca.FALTA);
+        List<Matricula> listaMatricula = new ArrayList<>();
 
-        aluno1.setPresenca(listaPresenca1);
+        System.out.println("============ Cadastro de Alunos ============");
+        while (true) {
+            System.out.print("Digite o RA do aluno (ou digite 'sair' para encerrar): ");
+            String ra = scanner.nextLine();
 
-        List<Presenca> listaPresenca2 = new ArrayList<>();
-        listaPresenca2.add(Presenca.PRESENTE);
-        listaPresenca2.add(Presenca.PRESENTE);
-        listaPresenca2.add(Presenca.PRESENTE);
-        listaPresenca2.add(Presenca.FALTA);
-        listaPresenca2.add(Presenca.FALTA);
-        listaPresenca2.add(Presenca.FALTA);
-        listaPresenca2.add(Presenca.PRESENTE);
-        listaPresenca2.add(Presenca.FALTA);
+            if (ra.equals("sair")) {
+                break;
+            }
 
-        aluno2.setPresenca(listaPresenca2);
+            System.out.print("Digite o nome do aluno: ");
+            String nomeAluno = scanner.nextLine();
 
-        double notaGeral = ads.calcularMediaGeral();
-        String notaFormatada = String.format("%.2f", notaGeral);
+            Matricula matricula = new Matricula(new Aluno(ra, nomeAluno), LocalDateTime.now());
 
-        System.out.println("Nota geral da sala: " + notaFormatada);
-        ads.mostrarAlunosReprovados();
+            // Cadastrar notas
+            CriarNotasAluno criarNotasAluno = new CriarNotasAluno();
+            Nota notas;
+            do {
+                notas = criarNotasAluno.gerarNotasAleatorias();
+                if (!notas.validarNotas()) {
+                    System.out.println("Notas inválidas. As notas devem estar no intervalo de 0 a 10.");
+                }
+            } while (!notas.validarNotas());
+
+            matricula.setNota(notas);
+
+            // Cadastrar presenças
+            List<Presenca> listaPresenca = new ArrayList<>();
+            int aulaNumero = 1;
+
+            while (aulaNumero <= numeroTotalAulas) {
+                System.out.print("Aula " + aulaNumero + ": ");
+                String presencaStr = scanner.nextLine();
+                if (presencaStr.equalsIgnoreCase("P") || presencaStr.equalsIgnoreCase("F")) {
+                    Presenca presenca = presencaStr.equalsIgnoreCase("P") ? Presenca.PRESENTE : Presenca.FALTA;
+                    listaPresenca.add(presenca);
+                    aulaNumero++;
+                } else {
+                    System.out.println("Input inválido. Digite 'P' para presente ou 'F' para falta.");
+                }
+            }
+            matricula.setPresenca(listaPresenca);
+
+            listaMatricula.add(matricula);
+        }
+
+        Curso curso = new Curso(siglaCurso, nomeCurso, listaMatricula, aula);
+
+        System.out.println("Nota geral da sala: " + curso.calcularMediaGeral());
+        curso.mostrarAlunosReprovados();
     }
 }
