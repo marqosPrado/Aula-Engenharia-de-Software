@@ -1,21 +1,48 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class Curso {
 
     private String sigla;
     private String nome;
     private List<Matricula> matriculas;
-    private List<Aula> aulas;
+    private Aula aula;
 
-    public Curso(String sigla, String nome, List<Matricula> matriculas,
-                 List<Aula> aulas) {
+
+    public Curso(String sigla, String nome, List<Matricula> matriculas, Aula aula) {
         this.sigla = sigla;
         this.nome = nome;
         this.matriculas = matriculas;
-        this.aulas = aulas;
+        this.aula = aula;
+    }
+
+    public double calcularMediaGeral() {
+        double soma = 0;
+        for (Matricula matricula : matriculas) {
+            soma += matricula.getNota().calcularMedia();
+        }
+        return soma / matriculas.size();
+    }
+
+    public void mostrarAlunosReprovados() {
+        int totalAulas = getAula().getQuantidadeAulas();
+        int limiteFaltas = (int) (totalAulas * 0.25);
+
+        for (Matricula matricula : matriculas) {
+            int countFaltas = 0;
+            List<Presenca> presenca = matricula.getPresenca();
+            if (presenca == null) continue;
+            for (Presenca falta : presenca) {
+                if (falta.equals(Presenca.FALTA)) {
+                    countFaltas += 1;
+                }
+            }
+            if (countFaltas > limiteFaltas) {
+                System.out.println("Aluno: " + matricula.getAluno().getNome() + " está reprovado por falta");
+            }
+        }
     }
 
     public String getSigla() {
@@ -42,11 +69,11 @@ public class Curso {
         this.matriculas = matriculas;
     }
 
-    public List<Aula> getAulas() {
-        return aulas;
+    public Aula getAula() {
+        return aula;
     }
 
-    public void setAulas(List<Aula> aulas) {
-        this.aulas = aulas;
+    public void setAula(Aula aula) {
+        this.aula = aula;
     }
 }

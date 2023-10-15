@@ -1,30 +1,30 @@
 package domain;
 
-import domain.infra.CalcularMedia;
+public class Nota {
+    private double[] notas;
 
-public class Nota implements CalcularMedia {
-
-    private float[] notas;
-
-    public Nota(float[] notas) {
-        this.notas = notas;
-    }
-
-    @Override
-    public float mediaAritmetica() {
-        float soma = 0;
-        for (float nota : notas) {
+    public double calcularMedia() {
+        double soma = 0;
+        for (double nota : notas) {
             soma += nota;
         }
         return soma / notas.length;
     }
 
-
-    public float[] getNotas() {
+    public double[] getNotas() {
         return notas;
     }
 
-    public void setNotas(float[] notas) {
+    public void setNotas(double[] notas) {
         this.notas = notas;
+    }
+
+    public boolean validarNotas() {
+        for (double nota : notas) {
+            if (nota < 0 || nota > 10) {
+                return false;
+            }
+        }
+        return true;
     }
 }

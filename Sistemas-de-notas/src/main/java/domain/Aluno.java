@@ -6,8 +6,8 @@ public class Aluno {
     private String nome;
 
     public Aluno(String ra, String nome) {
-        this.ra = ra;
-        this.nome = nome;
+        setRa(ra);
+        setNome(nome);
     }
 
     public String getRa() {
