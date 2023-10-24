@@ -83,8 +83,10 @@ public class Main {
         // ======================================= Resultado =======================================
         System.out.println("======= Equipe: " + equipe1.getNome() + " =======\n");
 
-        System.out.println("Projeto: " + projeto.getNome() + "\n");
-        System.out.println("Membros do Projeto:\n" + "       " + equipe1.listarTodosMembrosDoProjeto() + "\n");
+        System.out.println("Projeto: " + projeto.getNome());
+        System.out.println("     Descrição: " + projeto.getDescricao());
+        System.out.println("     Prazo: " + projeto.getPrazo());
+        System.out.println("     Membros do Projeto:\n" + "       " + equipe1.listarTodosMembrosDoProjeto() + "\n");
 
         System.out.println("+++++++ Tarefas +++++++\n");
         System.out.println("Tarefa: " + tarefa1.getNome() +

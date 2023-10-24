@@ -37,7 +37,7 @@ public class Projetos {
 
     public List<String> listarTarefasAtrasadas() {
         return tarefas.stream()
-                .filter(tarefa -> tarefa.getPrazoFinal().isBefore(LocalDateTime.now()))
+                .filter(tarefa -> tarefa.getPrazoFinal().isBefore(LocalDateTime.now()) && tarefa.getStatus() != StatusTarefa.CONCLUIDA)
                 .map(Tarefa::getNome)
                 .collect(Collectors.toList());
     }
