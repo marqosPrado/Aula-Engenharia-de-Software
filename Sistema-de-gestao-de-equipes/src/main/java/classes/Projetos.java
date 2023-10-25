@@ -14,10 +14,10 @@ public class Projetos {
     private LocalDateTime prazo;
 
     public Projetos(String nome, String descricao) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.membros = new ArrayList<Membro>();
-        this.tarefas = new ArrayList<Tarefa>();
+        setNome(nome);
+        setDescricao(descricao);
+        this.membros = new ArrayList<>();
+        this.tarefas = new ArrayList<>();
     }
 
     public List<String> listarTodosMembrosDoProjeto() {
@@ -71,16 +71,8 @@ public class Projetos {
         this.descricao = descricao;
     }
 
-    public List<Tarefa> getTarefas() {
-        return tarefas;
-    }
-
     public void setTarefas(List<Tarefa> tarefas) {
         this.tarefas = tarefas;
-    }
-
-    public List<Membro> getMembros() {
-        return membros;
     }
 
     public void setMembros(List<Membro> membros) {

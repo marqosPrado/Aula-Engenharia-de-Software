@@ -10,8 +10,8 @@ public class Equipe {
     private List<Projetos> projetos;
 
     public Equipe(String nome) {
-        this.nome = nome;
-        this.projetos = new ArrayList<Projetos>();
+        setNome(nome);
+        this.projetos = new ArrayList<>();
     }
 
     public List<String> listarTodosMembrosDoProjeto() {
@@ -29,10 +29,6 @@ public class Equipe {
             throw new RuntimeException("Nome da equipe não pode ter mais de 50 caracteres");
         }
         this.nome = nome;
-    }
-
-    public List<Projetos> getProjetos() {
-        return projetos;
     }
 
     public void setProjetos(List<Projetos> projetos) {

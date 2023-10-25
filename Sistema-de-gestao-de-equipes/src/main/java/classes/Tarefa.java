@@ -13,15 +13,14 @@ public class Tarefa {
     private StatusTarefa status;
     private LocalDateTime prazoInicio;
     private LocalDateTime prazoFinal;
-
     private LocalDateTime dataConclusao;
 
 
     public Tarefa(String nome, String descricao) {
-        this.nome = nome;
-        this.descricao = descricao;
+        setNome(nome);
+        setDescricao(descricao);
         this.status = StatusTarefa.PENDENTE;
-        this.membros = new ArrayList<Membro>();
+        this.membros = new ArrayList<>();
     }
 
     public void alocarLider(Membro lider) {
@@ -44,6 +43,10 @@ public class Tarefa {
     }
 
     public List<String> listarTodosMembros() {
+        if (membros.isEmpty()) {
+            throw new RuntimeException("Tarefa não tem membros");
+        }
+
         return membros.stream()
                 .map(Membro::getNome)
                 .collect(java.util.stream.Collectors.toList());
@@ -52,6 +55,9 @@ public class Tarefa {
     public void removerMembro(String id) {
         if (membros.isEmpty()) {
             throw new RuntimeException("Tarefa não tem membros");
+        }
+        if (!existeMembro(id)) {
+            throw new RuntimeException("Membro não existe");
         }
         membros.removeIf(membro -> membro.getId().equals(id));
     }
@@ -150,10 +156,6 @@ public class Tarefa {
         this.prazoFinal = prazoFinal;
     }
 
-    public List<Membro> getMembros() {
-        return membros;
-    }
-
     public void setMembros(List<Membro> membros) {
         this.membros = membros;
     }
@@ -173,4 +175,10 @@ public class Tarefa {
     public void setDataConclusao(LocalDateTime dataConclusao) {
         this.dataConclusao = dataConclusao;
     }
+
+    private boolean existeMembro(String id) {
+        return membros.stream()
+                .anyMatch(membro -> membro.getId().equals(id));
+    }
+
 }
