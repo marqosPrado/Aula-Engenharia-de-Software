@@ -67,7 +67,7 @@ public class Main {
 
         // ======================================= Testes ==========================================
 
-        // tarefa2.removerMembro("2");
+//        tarefa2.removerMembro("A");
         tarefa1.iniciarTarefa();
         tarefa1.concluirTarefa();
 
@@ -77,8 +77,8 @@ public class Main {
         tarefa3.removerLider();
         tarefa3.alocarLider(pedro);
         tarefa3.removerMembro("4");
-        tarefa3.iniciarTarefa();
-        tarefa3.concluirTarefa();
+//        tarefa3.iniciarTarefa();
+//        tarefa3.concluirTarefa();
 
         // ======================================= Resultado =======================================
         System.out.println("======= Equipe: " + equipe1.getNome() + " =======\n");

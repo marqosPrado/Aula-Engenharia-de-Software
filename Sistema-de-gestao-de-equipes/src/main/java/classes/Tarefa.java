@@ -1,5 +1,7 @@
 package classes;
 
+import exceptions.MembroNaoEncontrado;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,12 +54,12 @@ public class Tarefa {
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    public void removerMembro(String id) {
+    public void removerMembro(String id) throws MembroNaoEncontrado {
         if (membros.isEmpty()) {
             throw new RuntimeException("Tarefa não tem membros");
         }
         if (!existeMembro(id)) {
-            throw new RuntimeException("Membro não existe");
+            throw new MembroNaoEncontrado("Membro não encontrado");
         }
         membros.removeIf(membro -> membro.getId().equals(id));
     }
