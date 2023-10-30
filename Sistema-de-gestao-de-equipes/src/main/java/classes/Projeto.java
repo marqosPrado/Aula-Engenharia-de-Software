@@ -45,11 +45,8 @@ public class Projeto {
                 .collect(Collectors.toList());
     }
 
-    public void criarPrazo(String dia, String mes, String ano) {
-        setPrazo(LocalDateTime.of(Integer.parseInt(ano),
-                Integer.parseInt(mes),
-                Integer.parseInt(dia),
-                0, 0));
+    public void criarPrazo(int dia, int mes, int ano) {
+        setPrazo(LocalDateTime.of(ano, mes, dia,0, 0));
     }
 
     public String getNome() {

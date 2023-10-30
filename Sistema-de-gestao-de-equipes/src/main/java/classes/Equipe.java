@@ -14,11 +14,15 @@ public class Equipe {
         this.projetos = new ArrayList<>();
     }
 
-    public List<String> listarTodosMembrosDoProjeto() {
+    public List<String> listarTodosProjetos() {
+        if (projetos.isEmpty()) {
+            throw new RuntimeException("Não há projetos alocados a essa equipe");
+        }
         return projetos.stream()
-                .flatMap(projeto -> projeto.listarTodosMembrosDoProjeto().stream())
+                .map(Projeto::getNome)
                 .collect(Collectors.toList());
     }
+
 
     public String getNome() {
         return nome;
