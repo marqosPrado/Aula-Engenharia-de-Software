@@ -24,11 +24,15 @@ public class Main {
 
         // ================================= Projeto ===============================================
         Projeto projeto = new Projeto("Projeto sebrae", "Projeto para o sebrae");
-        projeto.criarPrazo("31", "10", "2023");
+        projeto.criarPrazo(31, 10, 2023);
         projeto.setMembros(membros);
 
         List<Projeto> listaProjetos = new ArrayList<>();
         listaProjetos.add(projeto);
+
+        Projeto projeto2 = new Projeto("Projeto Vivo", "Projeto para a vivo");
+        projeto2.criarPrazo(10, 11, 2023);
+        listaProjetos.add(projeto2);
 
         // Tarefa ==================================================================================
         Tarefa tarefa1 = new Tarefa("Criar o projeto", "Criação do projeto");
@@ -82,11 +86,13 @@ public class Main {
 
         // ======================================= Resultado =======================================
         System.out.println("======= Equipe: " + equipe1.getNome() + " =======\n");
+        System.out.println("Projetos ativos:");
+        System.out.println("    " + equipe1.listarTodosProjetos() + "\n");
 
         System.out.println("Projeto: " + projeto.getNome());
         System.out.println("     Descrição: " + projeto.getDescricao());
         System.out.println("     Prazo: " + projeto.getPrazo());
-        System.out.println("     Membros do Projeto:\n" + "       " + equipe1.listarTodosMembrosDoProjeto() + "\n");
+        System.out.println("     Membros do Projeto:\n" + "       " + projeto.listarTodosMembrosDoProjeto() + "\n");
 
         System.out.println("+++++++ Tarefas +++++++\n");
         System.out.println("Tarefa: " + tarefa1.getNome() +
