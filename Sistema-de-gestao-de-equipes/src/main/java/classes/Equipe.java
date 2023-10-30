@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Equipe {
 
     private String nome;
-    private List<Projetos> projetos;
+    private List<Projeto> projetos;
 
     public Equipe(String nome) {
         setNome(nome);
@@ -31,7 +31,7 @@ public class Equipe {
         this.nome = nome;
     }
 
-    public void setProjetos(List<Projetos> projetos) {
+    public void setProjetos(List<Projeto> projetos) {
         this.projetos = projetos;
     }
 }

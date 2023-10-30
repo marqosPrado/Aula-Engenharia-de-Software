@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Projetos {
+public class Projeto {
 
     private String nome;
     private String descricao;
@@ -13,12 +13,23 @@ public class Projetos {
     private List<Membro> membros;
     private LocalDateTime prazo;
 
-    public Projetos(String nome, String descricao) {
+    public Projeto(String nome, String descricao) {
         setNome(nome);
         setDescricao(descricao);
         this.membros = new ArrayList<>();
         this.tarefas = new ArrayList<>();
     }
+
+    public double porcentagemTarefasConcluidas() {
+        int quantidadeTarefas = tarefas.size();
+        if (tarefas.isEmpty()) throw new RuntimeException("Não há tarefas no projeto.");
+        return (double) tarefas.stream()
+                .filter(tarefa -> tarefa.getStatus() == StatusTarefa.CONCLUIDA)
+                .count()
+                / quantidadeTarefas
+                * 100;
+    }
+
 
     public List<String> listarTodosMembrosDoProjeto() {
         return membros.stream()

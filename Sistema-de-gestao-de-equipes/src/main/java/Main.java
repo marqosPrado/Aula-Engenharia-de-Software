@@ -1,8 +1,7 @@
 import classes.Equipe;
 import classes.Membro;
-import classes.Projetos;
+import classes.Projeto;
 import classes.Tarefa;
-import services.ServicoMetricasDoProjeto;
 
 
 import java.util.ArrayList;
@@ -24,11 +23,11 @@ public class Main {
         membros.add(pedro);
 
         // ================================= Projeto ===============================================
-        Projetos projeto = new Projetos("Projeto sebrae", "Projeto para o sebrae");
+        Projeto projeto = new Projeto("Projeto sebrae", "Projeto para o sebrae");
         projeto.criarPrazo("31", "10", "2023");
         projeto.setMembros(membros);
 
-        List<Projetos> listaProjetos = new ArrayList<>();
+        List<Projeto> listaProjetos = new ArrayList<>();
         listaProjetos.add(projeto);
 
         // Tarefa ==================================================================================
@@ -79,7 +78,7 @@ public class Main {
         tarefa3.alocarLider(pedro);
         tarefa3.removerMembro("4");
         tarefa3.iniciarTarefa();
-        tarefa3.concluirTarefa();
+//        tarefa3.concluirTarefa();
 
         // ======================================= Resultado =======================================
         System.out.println("======= Equipe: " + equipe1.getNome() + " =======\n");
@@ -118,7 +117,7 @@ public class Main {
                 "       " + projeto.listarTarefasAtrasadas());
         System.out.println("----------------------------------------");
 
-        System.out.printf("\nTarefas concluídas: %.2f%%\n", ServicoMetricasDoProjeto.calcularPorcentagemTarefasConcluidas(projeto));
+        System.out.printf("\nTarefas concluídas: %.2f%%\n", projeto.porcentagemTarefasConcluidas());
 
     }
 
