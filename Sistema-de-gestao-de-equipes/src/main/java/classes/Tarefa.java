@@ -39,6 +39,9 @@ public class Tarefa {
 
 
     public void alocarTodosMembros(List<Membro> membros) {
+        if (membros.isEmpty()) {
+            throw new RuntimeException("Lista de membros está vazia");
+        }
         setMembros(membros);
     }
 

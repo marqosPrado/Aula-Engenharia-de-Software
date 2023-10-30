@@ -26,18 +26,10 @@ public class Projetos {
                 .collect(Collectors.toList());
     }
 
-    public double porcentagemTarefasConcluidas() {
-        double totalTarefas = tarefas.size();
-        return tarefas.stream()
-                .filter(tarefa -> tarefa.getStatus() == StatusTarefa.CONCLUIDA)
-                .count()
-                / totalTarefas
-                * 100;
-    }
-
     public List<String> listarTarefasAtrasadas() {
         return tarefas.stream()
-                .filter(tarefa -> tarefa.getPrazoFinal().isBefore(LocalDateTime.now()) && tarefa.getStatus() != StatusTarefa.CONCLUIDA)
+                .filter(tarefa -> tarefa.getPrazoFinal().isBefore(LocalDateTime.now())
+                        && tarefa.getStatus() != StatusTarefa.CONCLUIDA)
                 .map(Tarefa::getNome)
                 .collect(Collectors.toList());
     }
@@ -85,5 +77,9 @@ public class Projetos {
 
     public void setPrazo(LocalDateTime prazo) {
         this.prazo = prazo;
+    }
+
+    public List<Tarefa> getTarefas() {
+        return this.tarefas;
     }
 }

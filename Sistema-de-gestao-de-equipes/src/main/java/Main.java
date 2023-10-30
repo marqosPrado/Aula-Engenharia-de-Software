@@ -2,6 +2,7 @@ import classes.Equipe;
 import classes.Membro;
 import classes.Projetos;
 import classes.Tarefa;
+import services.ServicoMetricasDoProjeto;
 
 
 import java.util.ArrayList;
@@ -117,7 +118,7 @@ public class Main {
                 "       " + projeto.listarTarefasAtrasadas());
         System.out.println("----------------------------------------");
 
-        System.out.printf("\nTarefas concluídas: %.2f%%\n", projeto.porcentagemTarefasConcluidas());
+        System.out.printf("\nTarefas concluídas: %.2f%%\n", ServicoMetricasDoProjeto.calcularPorcentagemTarefasConcluidas(projeto));
 
     }
 
